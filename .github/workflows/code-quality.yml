@@ -1,0 +1,90 @@
+name: Code Quality Check
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  lint:
+    name: Lint Code
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          npm init -y
+          npm install eslint stylelint stylelint-config-standard html-validate --save-dev
+
+      - name: Create ESLint config
+        run: |
+          echo '{
+            "env": {
+              "browser": true,
+              "es2021": true
+            },
+            "extends": "eslint:recommended",
+            "parserOptions": {
+              "ecmaVersion": 12
+            },
+            "rules": {
+              "no-unused-vars": "warn",
+              "no-undef": "error",
+              "semi": ["error", "always"],
+              "indent": ["error", 2]
+            }
+          }' > .eslintrc.json
+
+      - name: Create Stylelint config
+        run: |
+          echo '{
+            "extends": "stylelint-config-standard",
+            "rules": {
+              "indentation": 2,
+              "color-hex-case": "lower",
+              "color-hex-length": "short"
+            }
+          }' > .stylelintrc.json
+
+      - name: Create HTML Validate config
+        run: |
+          echo '{
+            "extends": ["html-validate:recommended"],
+            "rules": {
+              "element-required-attributes": "error",
+              "void-style": "off"
+            }
+          }' > .htmlvalidate.json
+
+      - name: Lint JavaScript
+        run: npx eslint '*.js'
+
+      - name: Lint CSS
+        run: npx stylelint '*.css'
+
+      - name: Validate HTML
+        run: npx html-validate '*.html'
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install yamllint
+        run: pip install yamllint
+
+      - name: Lint YAML files
+        run: |
+          # インラインでYAMLファイルをチェック（設定ファイルを作成せずに直接ルールを指定）
+          yamllint -d "{extends: relaxed, rules: {indentation: {spaces: 2, indent-sequences: true}, line-length: disable, document-start: disable}}" .
