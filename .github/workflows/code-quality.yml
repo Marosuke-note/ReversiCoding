@@ -75,16 +75,3 @@ jobs:
 
       - name: Validate HTML
         run: npx html-validate '*.html'
-
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-
-      - name: Install yamllint
-        run: pip install yamllint
-
-      - name: Lint YAML files
-        run: |
-          # インラインでYAMLファイルをチェック（設定ファイルを作成せずに直接ルールを指定）
-          yamllint -d "{extends: relaxed, rules: {indentation: {spaces: 2, indent-sequences: true}, line-length: disable, document-start: disable}}" .

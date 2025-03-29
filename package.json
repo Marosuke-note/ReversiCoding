@@ -1,0 +1,28 @@
+{
+  "name": "reversicoding",
+  "version": "1.0.0",
+  "description": "- ブラウザで遊べるシンプルなリバーシゲームです。 - HTML、CSS、JavaScriptのみで実装し、外部ライブラリは使用していません。 - MDNのコード規約に準拠しました。",
+  "main": "reversi.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.28.0",
+    "@typescript-eslint/parser": "^8.28.0",
+    "eslint": "^9.23.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-prettier": "^5.2.5",
+    "html-validate": "^9.5.2",
+    "htmlhint": "^1.1.4",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.0",
+    "markdownlint-cli": "^0.44.0",
+    "prettier": "^3.5.3",
+    "stylelint": "^16.17.0",
+    "stylelint-config-standard": "^37.0.0",
+    "stylelint-scss": "^6.11.1"
+  }
+}
