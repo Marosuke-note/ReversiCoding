@@ -2,9 +2,9 @@ name: Code Quality Check
 
 on:
   push:
-    branches: ['*'] # すべてのブランチに対してpushが発生したとき実行
+    branches: ['main']
   pull_request:
-    branches: ['*'] # すべてのブランチへのプルリクエストで実行
+    branches: ['main']
   workflow_dispatch:
 
 jobs:
@@ -66,17 +66,18 @@ jobs:
             }' > .stylelintrc.json
           fi
 
-      - name: Create HTML Validate config if not exists
-        run: |
-          if [ ! -f .htmlvalidate.json ]; then
-            echo '{
-              "extends": ["html-validate:recommended"],
-              "rules": {
-                "element-required-attributes": "error",
-                "void-style": "off"
-              }
-            }' > .htmlvalidate.json
-          fi
+          - name: Create HTML Validate config if not exists
+          run: |
+            if [ ! -f .htmlvalidate.json ]; then
+              echo '{
+                "extends": ["html-validate:recommended"],
+                "rules": {
+                  "element-required-attributes": "error",
+                  "void-style": "off",
+                  "doctype-style": "uppercase"
+                }
+              }' > .htmlvalidate.json
+            fi
 
       - name: Lint JavaScript
         run: npm run lint:js || npx eslint "*.js" --fix
