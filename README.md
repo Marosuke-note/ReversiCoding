@@ -153,8 +153,8 @@ ReversiCoding/
 
 ### 4.1 必要なツール
 
-- Node.js (v18以上を推奨)
-- npm (v8以上)
+- Node.js (v20)
+- npm (v10)
 - Git
 
 ### 4.2 依存関係のインストール
