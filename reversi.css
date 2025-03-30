@@ -47,7 +47,7 @@
     background-color: var(--container-background);
     padding: 30px;
     border-radius: 15px;
-    box-shadow: 0 8px 24px rgba(149, 157, 165, 0.2);
+    box-shadow: 0 8px 24px rgb(149 157 165 / 20%);
     max-width: 600px;
     width: 100%;
   }
@@ -107,7 +107,7 @@
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
   }
 
   .black {
@@ -128,7 +128,7 @@
     background-color: var(--board-color);
     border: 8px solid var(--board-border);
     border-radius: 5px;
-    box-shadow: 0 10px 30px rgba(25, 118, 210, 0.3);
+    box-shadow: 0 10px 30px rgb(25 118 210 / 30%);
     position: relative;
     overflow: hidden;
   }
@@ -139,7 +139,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
+    background: radial-gradient(ellipse at center, rgb(255 255 255 / 20%) 0%, rgb(255 255 255 / 0%) 70%);
     pointer-events: none;
   }
 
@@ -164,7 +164,7 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 60%);
+    background: linear-gradient(135deg, rgb(255 255 255 / 10%) 0%, rgb(255 255 255 / 0%) 60%);
   }
 
   .cell-disc {
@@ -172,7 +172,7 @@
     height: 48px;
     border-radius: 50%;
     transition: transform 0.4s, background 0.3s;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 3px 5px rgb(0 0 0 / 20%);
   }
 
   .cell-disc.flipping {
@@ -183,9 +183,11 @@
     0% {
       transform: rotateY(0deg);
     }
+
     50% {
       transform: rotateY(90deg);
     }
+
     100% {
       transform: rotateY(0deg);
     }
@@ -205,9 +207,9 @@
     position: absolute;
     width: 12px;
     height: 12px;
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgb(255 255 255 / 30%);
     border-radius: 50%;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 8px rgb(255 255 255 / 50%);
   }
 
   /* ゲームステータスとコントロールのスタイル */
@@ -236,18 +238,18 @@
     font-size: 16px;
     font-weight: 600;
     transition: all 0.2s;
-    box-shadow: 0 4px 6px rgba(41, 98, 255, 0.2);
+    box-shadow: 0 4px 6px rgb(41 98 255 / 20%);
   }
 
   button:hover {
     background-color: var(--primary-dark);
     transform: translateY(-2px);
-    box-shadow: 0 6px 8px rgba(41, 98, 255, 0.3);
+    box-shadow: 0 6px 8px rgb(41 98 255 / 30%);
   }
 
   button:active {
     transform: translateY(0);
-    box-shadow: 0 2px 4px rgba(41, 98, 255, 0.2);
+    box-shadow: 0 2px 4px rgb(41 98 255 / 20%);
   }
 
   button:focus {
@@ -288,7 +290,7 @@
   }
 
   /* レスポンシブデザイン */
-  @media (max-width: 600px) {
+  @media (width <= 600px) {
     .game-board {
       grid-template-columns: repeat(8, 40px);
       grid-template-rows: repeat(8, 40px);
