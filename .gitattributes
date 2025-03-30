@@ -14,14 +14,6 @@
 *.pdf binary
 
 # プロジェクト特有のファイル設定
-# Python関連
-*.py text diff=python
-*.pyw text diff=python
-requirements.txt text
-Dockerfile text
-docker-compose.yml text
-*.env.example text
-
 # JavaScript/TypeScript関連
 *.js text
 *.jsx text
@@ -43,6 +35,9 @@ docker-compose.yml text
 
 # シェルスクリプト
 *.sh text eol=lf
+
+# huskyスクリプト用の設定
+.husky/* text eol=lf
 
 # Font files
 *.ttf binary

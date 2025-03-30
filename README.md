@@ -42,11 +42,11 @@ git clone https://github.com/Marosuke-note/ReversiCoding
 
 2. ダウンロードしたフォルダ内の以下のファイルをご確認ください
 
-| ファイル名     | 内容             |
-| ------------- | --------------- |
-| index.html    | ゲームのHTML構造 |
-| reversi.css   | スタイル定義     |
-| reversi.js    | ゲームのロジック |
+| ファイル名  | 内容             |
+| ----------- | ---------------- |
+| index.html  | ゲームのHTML構造 |
+| reversi.css | スタイル定義     |
+| reversi.js  | ゲームのロジック |
 
 ### 2.4 動作環境
 
@@ -67,18 +67,20 @@ git clone https://github.com/Marosuke-note/ReversiCoding
 
 ```
 ReversiCoding/
-├── index.html        # メインのHTMLファイル
-├── reversi.css       # スタイルシート
-├── reversi.js        # ゲームロジック
-├── .eslintrc.json    # ESLint設定（廃止予定）
-├── eslint.config.js  # ESLint設定（新形式）
-├── .stylelintrc.json # Stylelint設定
-├── .htmlvalidate.json # HTML検証設定
-├── package.json      # プロジェクト設定と依存関係
-├── .github/          # GitHub関連ファイル
-│   └── workflows/    # GitHub Actions
-│       └── code-quality-check.yml # コード品質チェックワークフロー
-└── README.md         # このファイル
+├── index.html          # メインのHTMLファイル
+├── reversi.css         # スタイルシート
+├── reversi.js          # ゲームロジック
+├── eslint.config.js    # ESLint設定（フラット設定形式）
+├── .stylelintrc.json   # Stylelint設定
+├── .htmlvalidate.json  # HTML検証設定
+├── .husky/             # Gitフック設定
+│   └── pre-commit      # コミット前に実行されるスクリプト
+├── package.json        # プロジェクト設定と依存関係
+├── .gitattributes      # Git属性設定
+├── .github/            # GitHub関連ファイル
+│   └── workflows/      # GitHub Actions
+│       └── code-quality.yml # コード品質チェックワークフロー
+└── README.md           # このファイル
 ```
 
 ### 3.3 コードの概要
@@ -105,25 +107,38 @@ ReversiCoding/
 #### コード品質チェック
 
 - **ESLint**: JavaScriptのコード品質とスタイルをチェック
+
   - 実行コマンド: `npm run lint:js`
-  - 修正コマンド: `npm run lint:js -- --fix`
+  - 修正コマンド: `npm run lint:js`（--fixフラグ内蔵）
 
 - **Stylelint**: CSSのコード品質とスタイルをチェック
+
   - 実行コマンド: `npm run lint:css`
-  - 修正コマンド: `npm run lint:css -- --fix`
+  - 修正コマンド: `npm run lint:css`（--fixフラグ内蔵）
 
 - **HTML Validate**: HTMLの構造と品質をチェック
+
   - 実行コマンド: `npm run lint:html`
 
 - **一括実行**: すべてのリントを実行
+
   - 実行コマンド: `npm run lint`
-  - 修正コマンド: `npm run lint -- --fix`
+
+- **コード整形**: Prettierによるコード整形
+  - 実行コマンド: `npm run format`
+
+#### Gitフック
+
+- **husky**: コミット前に自動的にコード品質チェックを実行
+  - pre-commitフック: コミット前にlint-stagedを実行
+  - lint-staged: 変更されたファイルに対してのみリントを実行
 
 #### 継続的インテグレーション
 
 - **GitHub Actions**: プッシュとプルリクエスト時に自動的にコード品質チェックを実行
   - すべてのブランチで有効
-  - 設定ファイル: `.github/workflows/code-quality-check.yml`
+  - Node.js 18環境で実行
+  - 設定ファイル: `.github/workflows/code-quality.yml`
 
 ### 3.6 今後の開発予定(やってみたい)
 
@@ -138,8 +153,9 @@ ReversiCoding/
 
 ### 4.1 必要なツール
 
-- Node.js (v16以上)
+- Node.js (v18以上を推奨)
 - npm (v8以上)
+- Git
 
 ### 4.2 依存関係のインストール
 
@@ -147,7 +163,13 @@ ReversiCoding/
 npm install
 ```
 
-### 4.3 開発サーバーの起動
+### 4.3 Gitフックの設定
+
+huskyとlint-stagedは自動的にセットアップされます。`npm install`実行後、コミット時に変更されたファイルに対して自動的にリントが実行されるようになります。
+
+TODO 開発用サーバー設定
+
+### 4.4 開発サーバーの起動
 
 静的なHTMLファイルなので、任意のWebサーバーで提供できます。簡易的には以下のようなコマンドで開発サーバーを起動できます：
 
@@ -155,8 +177,6 @@ npm install
 # Node.jsのhttp-serverを使用する場合
 npx http-server
 
-# Pythonの組み込みサーバーを使用する場合
-python -m http.server
 ```
 
 ## ライセンス

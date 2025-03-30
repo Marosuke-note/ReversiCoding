@@ -1,6 +1,6 @@
 import globals from "globals";
 import js from "@eslint/js";
-import prettier from "eslint-plugin-prettier/recommended";
+import prettierConfig from "eslint-config-prettier";
 
 export default [
   js.configs.recommended,
@@ -19,5 +19,5 @@ export default [
       indent: ["error", 2],
     },
   },
-  prettier,
+  prettierConfig,
 ];
