@@ -1,8 +1,8 @@
 ---
 name: 📚 ドキュメント
 about: ドキュメントの追加・更新・修正
-labels: ["documentation"]
-assignees: ""
+labels: ['documentation']
+assignees: ''
 ---
 
 ## 📚 更新の概要

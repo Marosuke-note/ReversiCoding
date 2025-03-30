@@ -1,8 +1,8 @@
 ---
 name: ✨ 機能要望
 about: 新機能の提案や機能改善の要望
-labels: ["enhancement"]
-assignees: ""
+labels: ['enhancement']
+assignees: ''
 ---
 
 ## ✨ 要望の概要

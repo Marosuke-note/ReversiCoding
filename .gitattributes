@@ -1,0 +1,47 @@
+# デフォルトですべてのテキストファイルの改行コードをLFに設定
+* text=auto eol=lf
+
+# Windowsのバッチファイルは明示的にCRLFを使用
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# バイナリファイルは改行コード変換を行わない
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
+*.zip binary
+*.pdf binary
+
+# プロジェクト特有のファイル設定
+# JavaScript/TypeScript関連
+*.js text
+*.jsx text
+*.ts text
+*.tsx text
+*.json text
+*.css text
+*.scss text
+*.html text
+
+# ドキュメント
+*.md text diff=markdown
+*.mdx text diff=markdown
+*.txt text
+*.csv text
+
+# SQLファイル
+*.sql text
+
+# シェルスクリプト
+*.sh text eol=lf
+
+# huskyスクリプト用の設定
+.husky/* text eol=lf
+
+# Font files
+*.ttf binary
+*.eot binary
+*.woff binary
+*.woff2 binary
+
