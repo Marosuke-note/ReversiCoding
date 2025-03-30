@@ -28,7 +28,8 @@ jobs:
       - name: Create ESLint config if not exists
         run: |
           if [ ! -f eslint.config.js ]; then
-            echo 'import globals from "globals";
+            cat > eslint.config.js << 'EOF'
+            import globals from "globals";
             import js from "@eslint/js";
             import prettier from "eslint-plugin-prettier/recommended";
 
@@ -50,34 +51,39 @@ jobs:
                 }
               },
               prettier
-            ];' > eslint.config.js
+            ];
+            EOF
           fi
 
       - name: Create Stylelint config if not exists
         run: |
           if [ ! -f .stylelintrc.json ]; then
-            echo '{
+            cat > .stylelintrc.json << 'EOF'
+            {
               "extends": "stylelint-config-standard",
               "rules": {
                 "indentation": 2,
                 "color-hex-case": "lower",
                 "color-hex-length": "short"
               }
-            }' > .stylelintrc.json
+            }
+            EOF
           fi
 
-          - name: Create HTML Validate config if not exists
-          run: |
-            if [ ! -f .htmlvalidate.json ]; then
-              echo '{
-                "extends": ["html-validate:recommended"],
-                "rules": {
-                  "element-required-attributes": "error",
-                  "void-style": "off",
-                  "doctype-style": "uppercase"
-                }
-              }' > .htmlvalidate.json
-            fi
+      - name: Create HTML Validate config if not exists
+        run: |
+          if [ ! -f .htmlvalidate.json ]; then
+            cat > .htmlvalidate.json << 'EOF'
+            {
+              "extends": ["html-validate:recommended"],
+              "rules": {
+                "element-required-attributes": "error",
+                "void-style": "off",
+                "doctype-style": "uppercase"
+              }
+            }
+            EOF
+          fi
 
       - name: Lint JavaScript
         run: npm run lint:js || npx eslint "*.js" --fix
