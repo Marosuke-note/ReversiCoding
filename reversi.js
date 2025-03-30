@@ -5,7 +5,7 @@
 
 // 即時実行関数で全体をラップし、グローバル名前空間を汚染しないようにする
 (function () {
-  "use strict";
+  'use strict';
 
   // 定数定義
   const EMPTY = 0;
@@ -33,16 +33,14 @@
   let moveHistory = [];
 
   // DOM要素
-  const gameBoard = document.getElementById("game-board");
-  const blackScoreElement = document.getElementById("black-score");
-  const whiteScoreElement = document.getElementById("white-score");
-  const currentPlayerDiscElement = document.getElementById(
-    "current-player-disc",
-  );
-  const gameStatusElement = document.getElementById("game-status");
-  const movesListElement = document.getElementById("moves-list");
-  const restartButton = document.getElementById("restart-btn");
-  const showMovesButton = document.getElementById("show-moves-btn");
+  const gameBoard = document.getElementById('game-board');
+  const blackScoreElement = document.getElementById('black-score');
+  const whiteScoreElement = document.getElementById('white-score');
+  const currentPlayerDiscElement = document.getElementById('current-player-disc');
+  const gameStatusElement = document.getElementById('game-status');
+  const movesListElement = document.getElementById('moves-list');
+  const restartButton = document.getElementById('restart-btn');
+  const showMovesButton = document.getElementById('show-moves-btn');
 
   /**
    * 座標を文字に変換（A1, B2など）
@@ -84,32 +82,32 @@
    */
   function renderBoard() {
     // ハイライト要素を保持するか、なければ作成する
-    let highlight = gameBoard.querySelector(".board-highlight");
+    let highlight = gameBoard.querySelector('.board-highlight');
     if (!highlight) {
-      highlight = document.createElement("div");
-      highlight.className = "board-highlight";
+      highlight = document.createElement('div');
+      highlight.className = 'board-highlight';
     }
 
-    gameBoard.innerHTML = "";
+    gameBoard.innerHTML = '';
     gameBoard.appendChild(highlight);
 
     // セルを作成
     for (let row = 0; row < BOARD_SIZE; row++) {
       for (let col = 0; col < BOARD_SIZE; col++) {
-        const cell = document.createElement("div");
-        cell.className = "cell";
+        const cell = document.createElement('div');
+        cell.className = 'cell';
         cell.dataset.row = row;
         cell.dataset.col = col;
 
         if (board[row][col] !== EMPTY) {
-          const disc = document.createElement("div");
-          disc.className = `cell-disc ${board[row][col] === BLACK ? "black" : "white"}`;
+          const disc = document.createElement('div');
+          disc.className = `cell-disc ${board[row][col] === BLACK ? 'black' : 'white'}`;
           cell.appendChild(disc);
         } else if (showValidMoves && isValidMove(row, col, currentPlayer)) {
-          cell.classList.add("valid-move");
+          cell.classList.add('valid-move');
         }
 
-        cell.addEventListener("click", () => handleCellClick(row, col));
+        cell.addEventListener('click', () => handleCellClick(row, col));
         gameBoard.appendChild(cell);
       }
     }
@@ -129,16 +127,16 @@
     whiteScoreElement.textContent = whiteCount;
 
     // 現在のプレイヤー表示の更新
-    currentPlayerDiscElement.className = `disc ${currentPlayer === BLACK ? "black" : "white"}`;
+    currentPlayerDiscElement.className = `disc ${currentPlayer === BLACK ? 'black' : 'white'}`;
 
     // ゲーム状態の表示
     if (gameOver) {
       if (blackCount > whiteCount) {
-        gameStatusElement.textContent = "黒の勝利！";
+        gameStatusElement.textContent = '黒の勝利！';
       } else if (whiteCount > blackCount) {
-        gameStatusElement.textContent = "白の勝利！";
+        gameStatusElement.textContent = '白の勝利！';
       } else {
-        gameStatusElement.textContent = "引き分け！";
+        gameStatusElement.textContent = '引き分け！';
       }
     } else {
       const hasValidMove = checkValidMoves(currentPlayer);
@@ -148,10 +146,10 @@
         const oppositeHasValidMove = checkValidMoves(oppositePlayer);
 
         if (oppositeHasValidMove) {
-          gameStatusElement.textContent = `${currentPlayer === BLACK ? "黒" : "白"}の手番はパスです`;
+          gameStatusElement.textContent = `${currentPlayer === BLACK ? '黒' : '白'}の手番はパスです`;
           moveHistory.push({
             player: currentPlayer,
-            notation: "パス",
+            notation: 'パス',
             blackCount,
             whiteCount,
           });
@@ -163,7 +161,7 @@
           updateGameInfo();
         }
       } else {
-        gameStatusElement.textContent = "";
+        gameStatusElement.textContent = '';
       }
     }
   }
@@ -193,12 +191,12 @@
    * 対局履歴を更新する
    */
   function updateMoveHistory() {
-    movesListElement.innerHTML = "";
+    movesListElement.innerHTML = '';
 
     moveHistory.forEach((move, index) => {
-      const moveItem = document.createElement("div");
-      moveItem.className = "move-item";
-      moveItem.textContent = `${index + 1}. ${move.player === BLACK ? "黒" : "白"} ${move.notation} (${move.blackCount}-${move.whiteCount})`;
+      const moveItem = document.createElement('div');
+      moveItem.className = 'move-item';
+      moveItem.textContent = `${index + 1}. ${move.player === BLACK ? '黒' : '白'} ${move.notation} (${move.blackCount}-${move.whiteCount})`;
       movesListElement.appendChild(moveItem);
     });
 
@@ -227,16 +225,14 @@
       setTimeout(() => {
         flippedDiscs.forEach(([r, c]) => {
           board[r][c] = currentPlayer;
-          const cell = document.querySelector(
-            `.cell[data-row="${r}"][data-col="${c}"] .cell-disc`,
-          );
+          const cell = document.querySelector(`.cell[data-row="${r}"][data-col="${c}"] .cell-disc`);
           if (cell) {
-            cell.classList.add("flipping");
+            cell.classList.add('flipping');
             setTimeout(() => {
-              cell.className = `cell-disc ${currentPlayer === BLACK ? "black" : "white"}`;
+              cell.className = `cell-disc ${currentPlayer === BLACK ? 'black' : 'white'}`;
             }, 200);
             setTimeout(() => {
-              cell.classList.remove("flipping");
+              cell.classList.remove('flipping');
             }, 400);
           }
         });
@@ -299,13 +295,7 @@
       let tempFlipped = [];
 
       // その方向に相手の石があるか
-      while (
-        r >= 0 &&
-        r < BOARD_SIZE &&
-        c >= 0 &&
-        c < BOARD_SIZE &&
-        board[r][c] === opponent
-      ) {
+      while (r >= 0 && r < BOARD_SIZE && c >= 0 && c < BOARD_SIZE && board[r][c] === opponent) {
         tempFlipped.push([r, c]);
         r += dx;
         c += dy;
@@ -344,9 +334,9 @@
   }
 
   // イベントリスナーの設定
-  restartButton.addEventListener("click", initGame);
+  restartButton.addEventListener('click', initGame);
 
-  showMovesButton.addEventListener("click", () => {
+  showMovesButton.addEventListener('click', () => {
     showValidMoves = !showValidMoves;
     renderBoard();
   });

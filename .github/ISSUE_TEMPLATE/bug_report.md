@@ -1,8 +1,8 @@
 ---
 name: 🐛 バグ報告
 about: バグの報告や修正依頼
-labels: ["bug"]
-assignees: ""
+labels: ['bug']
+assignees: ''
 ---
 
 ## 🐛 バグの概要
