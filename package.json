@@ -3,18 +3,25 @@
   "version": "1.0.0",
   "description": "- ブラウザで遊べるシンプルなリバーシゲームです。 - HTML、CSS、JavaScriptのみで実装し、外部ライブラリは使用していません。 - MDNのコード規約に準拠しました。",
   "main": "reversi.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint:js": "eslint *.js",
+    "lint:css": "stylelint *.css",
+    "lint:html": "html-validate *.html",
+    "lint": "npm run lint:js && npm run lint:css && npm run lint:html"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@eslint/js": "^9.23.0",
     "@typescript-eslint/eslint-plugin": "^8.28.0",
     "@typescript-eslint/parser": "^8.28.0",
     "eslint": "^9.23.0",
     "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-prettier": "^5.2.5",
+    "globals": "^16.0.0",
     "html-validate": "^9.5.2",
     "htmlhint": "^1.1.4",
     "husky": "^9.1.7",
