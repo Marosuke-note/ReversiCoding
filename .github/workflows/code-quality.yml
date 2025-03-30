@@ -22,74 +22,40 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: Install dependencies
-        run: npm ci || npm install
+        run: npm ci
 
       - name: Create ESLint config if not exists
         run: |
           if [ ! -f eslint.config.js ]; then
-            cat <<-'EOFJS' > eslint.config.js
-            import globals from "globals";
-            import js from "@eslint/js";
-            import prettier from "eslint-plugin-prettier/recommended";
-
-            export default [
-              js.configs.recommended,
-              {
-                languageOptions: {
-                  globals: {
-                    ...globals.browser
-                  },
-                  ecmaVersion: 2022,
-                  sourceType: "module"
-                },
-                rules: {
-                  "no-unused-vars": "warn",
-                  "no-undef": "error",
-                  "semi": ["error", "always"],
-                  "indent": ["error", 2]
-                }
-              },
-              prettier
-            ];
-            EOFJS
+            echo "module.exports = { extends: ['eslint:recommended', 'plugin:prettier/recommended'], env: { browser: true, es2022: true }, parserOptions: { sourceType: 'module', ecmaVersion: 2022 }, rules: { 'no-unused-vars': 'warn', 'no-undef': 'error', 'semi': ['error', 'always'], 'indent': ['error', 2] } };" > eslint.config.js
           fi
 
       - name: Create Stylelint config if not exists
         run: |
           if [ ! -f .stylelintrc.json ]; then
-            cat <<-'EOFSTYLE' > .stylelintrc.json
-            {
-              "extends": "stylelint-config-standard",
-              "rules": {
-                "indentation": 2,
-                "color-hex-case": "lower",
-                "color-hex-length": "short"
-              }
-            }
-            EOFSTYLE
+            echo '{ "extends": "stylelint-config-standard", "rules": { "indentation": 2, "color-hex-case": "lower", "color-hex-length": "short" } }' > .stylelintrc.json
           fi
 
       - name: Create HTML Validate config if not exists
         run: |
           if [ ! -f .htmlvalidate.json ]; then
-            cat <<-'EOFHTML' > .htmlvalidate.json
-            {
-              "extends": ["html-validate:recommended"],
-              "rules": {
-                "element-required-attributes": "error",
-                "void-style": "off",
-                "doctype-style": "uppercase"
-              }
-            }
-            EOFHTML
+            echo '{ "extends": ["html-validate:recommended"], "rules": { "element-required-attributes": "error", "void-style": "off", "doctype-style": "uppercase" } }' > .htmlvalidate.json
           fi
 
       - name: Lint JavaScript
-        run: npm run lint:js || npx eslint "*.js" --fix
+        run: npm run lint:js
 
       - name: Lint CSS
-        run: npm run lint:css || npx stylelint "*.css" --fix
+        run: npm run lint:css
 
       - name: Validate HTML
-        run: npm run lint:html || npx html-validate "*.html"
+        run: npm run lint:html
